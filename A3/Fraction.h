@@ -12,43 +12,50 @@
 #include <iostream>
 #include <stack>
 #include <queue>
+#include <cstring>
 
 using std::stack;
 using std::cout;
 using std::endl;
 using std::queue;
 using std::string;
+using std::ostream;
 
 class Fraction
 {
 public:
-    Fraction();
-    Fraction(long);
-    Fraction(long,long);
-    Fraction(const string &);
+    //Fraction() = default;
+    Fraction(long=0,long=1);
+    Fraction(const Fraction&);
+    //Fraction(const string &);
+    //Fraction (const char*);
     ~Fraction();
     
-    long getDen();
-    long getNum();
-    void setDen(long);
-    void setNum(long);
+    const long getDen() const;
+    const long getNum()const;
+    void setDen(long) const;
+    void setNum(long) const;
     static queue<string> Tokenize(const string& infixExpression);
     static Fraction evaluateInfix(queue<string> & infixQueue);
     static int precedence(string ope);
     static long gcd(long,long);
+    Fraction& operator=(const Fraction&);
     Fraction& operator+= (const Fraction& rhs);
     Fraction& operator-= (const Fraction& rhs);
     Fraction& operator*= (const Fraction& rhs);
     Fraction& operator/= (const Fraction& rhs);
     Fraction& operator++ ();
     Fraction operator++ (int);
-
+    Fraction& operator-- ();
+    Fraction operator-- (int);
+    friend ostream &operator<<(ostream &, const Fraction &);
     
 private:
-    long den,num;
+    mutable long den,num;
     void normalize();
     
 };
+
 
 #endif /* defined(__A3__Fraction__) */
 
