@@ -13,6 +13,7 @@
 #include <stack>
 #include <queue>
 #include <cstring>
+#include <sstream>
 
 using std::stack;
 using std::cout;
@@ -20,6 +21,10 @@ using std::endl;
 using std::queue;
 using std::string;
 using std::ostream;
+using std::istream;
+using std::istringstream;
+
+
 
 class Fraction
 {
@@ -27,8 +32,8 @@ public:
     //Fraction() = default;
     Fraction(long=0,long=1);
     Fraction(const Fraction&);
-    //Fraction(const string &);
-    //Fraction (const char*);
+    Fraction(const string &);
+    Fraction (const char*);
     ~Fraction();
     
     const long getDen() const;
@@ -49,12 +54,34 @@ public:
     Fraction& operator-- ();
     Fraction operator-- (int);
     friend ostream &operator<<(ostream &, const Fraction &);
+    friend istream &operator>>(istream &,Fraction&);
+    friend Fraction operator+ (const Fraction& rhs);
+    friend Fraction operator+ (const Fraction& lhs,const Fraction& rhs);
+    friend Fraction operator- (const Fraction& rhs);
+    friend Fraction operator- (const Fraction& lhs,const Fraction& rhs);
+    friend Fraction operator* (const Fraction& lhs,const Fraction& rhs);
+    friend Fraction operator/ (const Fraction& lhs,const Fraction& rhs);
+    friend bool operator==(const Fraction& lhs,const Fraction& rhs);
+    friend bool operator==(int lhsF,const Fraction& rhs);
+    friend bool operator<(const Fraction& lhs,const Fraction& rhs);
+    friend bool operator<(int lhsF,const Fraction& rhs);
+    friend bool operator!=(const Fraction& lhs,const Fraction& rhs);
+    friend bool operator<=(const Fraction& lhs,const Fraction& rhs);
+    friend bool operator>(const Fraction& lhs,const Fraction& rhs);
+    friend bool operator>=(const Fraction& lhs,const Fraction& rhs);
+    friend void evaluateFraction(const Fraction& lhs,const string& op,const Fraction& rhs,Fraction& result);
+    friend void evaluateFraction(Fraction& lhs,const string& op);
+    friend void evaluateFraction(const string& op,Fraction& lhs);
+    
     
 private:
     mutable long den,num;
     void normalize();
+    bool isOperator(string);
     
 };
+
+
 
 
 #endif /* defined(__A3__Fraction__) */
